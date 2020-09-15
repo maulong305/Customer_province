@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -23,7 +25,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findById(Long id) {
-        return customerRepository.findOne(id);
+        Optional<Customer> test = customerRepository.findById(id);
+        return test.orElse(null);
     }
 
     @Override
@@ -44,10 +47,11 @@ public class CustomerServiceImpl implements CustomerService {
                 .findAllByNameContainsOrEmailContainsOrAddressContains(keyword, keyword, keyword, pageInfo);
     }
 
-    @Override
-    public Customer findOne(Long id) {
-        return customerRepository.findOne(id);
-    }
+//    @Override
+//    public Customer findOne(Long id) {
+//
+//        return customerRepository.findById(id);
+//    }
 
     @Override
     public Customer save(Customer customer) {
@@ -56,19 +60,32 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> save(List<Customer> customers) {
-        Iterable<Customer> updatedCustomers = customerRepository.save(customers);
-        return streamAll(updatedCustomers).collect(Collectors.toList());
+
+        for(Customer customer:customers){
+            customerRepository.save(customer);
+
+        }
+return customers;
     }
 
     @Override
     public boolean exists(Long id) {
-        return customerRepository.exists(id);
+        return customerRepository.existsById(id);
     }
 
     @Override
     public List<Customer> findAll(List<Long> ids) {
-        Iterable<Customer> customers = customerRepository.findAll(ids);
-        return streamAll(customers).collect(Collectors.toList());
+
+        List<Customer> customerList = new ArrayList<>();
+        for (Long id: ids){
+            Optional<Customer> customer = customerRepository.findById(id);
+            if (customer.isPresent())
+            {
+                customerList.add(customer.get());
+            }
+        }
+
+        return customerList;
     }
 
     @Override
@@ -78,7 +95,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(Long id) {
-        customerRepository.delete(id);
+        customerRepository.deleteById(id);
     }
 
     @Override
@@ -88,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(List<Customer> customers) {
-        customerRepository.delete(customers);
+        customerRepository.deleteAll(customers);
     }
 
     @Override

@@ -6,6 +6,7 @@ import cg.wbd.grandemonstration.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -19,10 +20,10 @@ public class ProvinceServiceImpl implements ProvinceService {
         return streamAll().collect(Collectors.toList());
     }
 
-    @Override
-    public Province findOne(Long id) {
-        return provinceRepository.findOne(id);
-    }
+//    @Override
+//    public Province findOne(Long id) {
+//        return provinceRepository.findById(id);
+//    }
 
     @Override
     public Province save(Province Province) {
@@ -53,7 +54,8 @@ public class ProvinceServiceImpl implements ProvinceService {
 //
     @Override
     public Province findById(Long id) {
-        return provinceRepository.findOne(id);
+        Optional<Province> find = provinceRepository.findById(id);
+        return find.orElse(null);
     }
 //
 //

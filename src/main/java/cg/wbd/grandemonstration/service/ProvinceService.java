@@ -7,7 +7,7 @@ import java.util.List;
 public interface ProvinceService {
     List<Province> findAll();
 
-    Province findOne(Long id);
+//    Province findOne(Long id);
 
     Province findById(Long id);
 
