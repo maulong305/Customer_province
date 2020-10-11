@@ -20,11 +20,6 @@ public class ProvinceServiceImpl implements ProvinceService {
         return streamAll().collect(Collectors.toList());
     }
 
-//    @Override
-//    public Province findOne(Long id) {
-//        return provinceRepository.findById(id);
-//    }
-
     @Override
     public Province save(Province Province) {
         return provinceRepository.save(Province);
@@ -35,54 +30,12 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     }
 
-//    @Override
-//    public List<Province> save(List<Province> Provinces) {
-//        Iterable<Province> updatedProvinces = provinceRepository.save(Provinces);
-//        return streamAll(updatedProvinces).collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public boolean exists(Long id) {
-//        return provinceRepository.exists(id);
-//    }
-//
-//    @Override
-//    public List<Province> findAll(List<Long> ids) {
-//        Iterable<Province> Provinces = provinceRepository.findAll(ids);
-//        return streamAll(Provinces).collect(Collectors.toList());
-//    }
-//
     @Override
     public Province findById(Long id) {
         Optional<Province> find = provinceRepository.findById(id);
         return find.orElse(null);
     }
-//
-//
-//    @Override
-//    public long count() {
-//        return provinceRepository.count();
-//    }
-//
-//    @Override
-//    public void delete(Long id) {
-//        provinceRepository.delete(id);
-//    }
-//
-//    @Override
-//    public void delete(Province Province) {
-//        provinceRepository.delete(Province);
-//    }
-//
-//    @Override
-//    public void delete(List<Province> Provinces) {
-//        provinceRepository.delete(Provinces);
-//    }
-//
-//    @Override
-//    public void deleteAll() {
-//        provinceRepository.deleteAll();
-//    }
+
 
     private Stream<Province> streamAll() {
         return StreamSupport.stream(provinceRepository.findAll().spliterator(), false);

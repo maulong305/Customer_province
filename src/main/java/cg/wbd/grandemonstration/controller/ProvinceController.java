@@ -50,7 +50,7 @@ public class ProvinceController {
             return modelAndView;
 
         }else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
+            ModelAndView modelAndView = new ModelAndView("/error");
             return modelAndView;
         }
     }

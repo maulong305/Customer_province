@@ -11,13 +11,12 @@ public interface CustomerService {
 
     Page<Customer> findAll(Pageable pageInfo);
 
-    List<Customer> search(String keyword);
-
     Page<Customer> search(String keyword, Pageable pageInfo);
 
-//    Customer findOne(Long id);
+    void delete(Long id);
 
     Customer findById(Long id);
+
 
     Customer save(Customer customer);
 
@@ -25,15 +24,16 @@ public interface CustomerService {
 
     boolean exists(Long id);
 
+    List<Customer> search(String keyword);
+
     List<Customer> findAll(List<Long> ids);
 
     long count();
-
-    void delete(Long id);
 
     void delete(Customer customer);
 
     void delete(List<Customer> customers);
 
     void deleteAll();
+    //    Customer findOne(Long id);
 }
